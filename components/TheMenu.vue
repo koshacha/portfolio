@@ -9,14 +9,10 @@
           v-for="link in links"
           :key="link.to"
           :to="link.to"
-          class="flex items-center text-sm text-neutral-500 dark:text-neutral-50 group duration-200 gap-3"
-          :class="{
-            'hover:text-[var(--project-color)]': hasCustomColor,
-            'hover:text-blue-500': !hasCustomColor,
-          }"
+          class="flex items-center text-sm text-neutral-500 dark:text-neutral-50 group duration-200 gap-3 hover:text-blue-500"
         >
           <Icon class="text-inherit size-4" :name="link.icon" />
-          {{ $t('menu.' + link.text) }}
+          {{ $t("menu." + link.text) }}
         </nuxt-link-locale>
       </div>
     </div>
@@ -52,8 +48,4 @@ const links: Link[] = [
     icon: "lucide:mail",
   },
 ];
-const { color: customColor } = useAppColor();
-const hasCustomColor = computed(() => {
-  return !!customColor.value;
-});
 </script>

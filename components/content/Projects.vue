@@ -45,7 +45,6 @@
 
 <script setup lang="ts">
 const { page } = useContent();
-const { color, set } = useAppColor();
 const { locale, defaultLocale } = useI18n();
 
 const projectsPath = computed(() => {
@@ -56,7 +55,5 @@ const projectsPath = computed(() => {
   }
 });
 
-onMounted(() => {
-  set(null);
-});
+onMounted(() => {});
 </script>

@@ -23,15 +23,6 @@ export default defineNuxtConfig({
     },
   },
 
-  icon: {
-    customCollections: [
-      {
-        prefix: "doodles",
-        dir: "./assets/icons/doodles",
-      },
-    ],
-  },
-
   googleFonts: {
     families: {
       Inter: [400, 500, 600, 700],

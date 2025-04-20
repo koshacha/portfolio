@@ -9,11 +9,7 @@
           v-for="locale in locales"
           :locale="locale.code"
           :key="locale.code"
-          class="flex items-center text-sm text-neutral-500 dark:text-neutral-50 group duration-200 gap-3"
-          :class="{
-            'hover:text-[var(--project-color)]': hasCustomColor,
-            'hover:text-blue-500': !hasCustomColor,
-          }"
+          class="flex items-center text-sm text-neutral-500 dark:text-neutral-50 group duration-200 gap-3hover:text-blue-500"
         >
           <Icon class="text-inherit size-4" :name="locale.icon" />
           {{ locale.name }}
@@ -40,9 +36,4 @@ const locales: Array<{
     icon: "tabler:alphabet-cyrillic",
   },
 ];
-
-const { color: customColor } = useAppColor();
-const hasCustomColor = computed(() => {
-  return !!customColor.value;
-});
 </script>

@@ -12,11 +12,8 @@
 
 <script setup lang="ts">
 const { page } = useContent();
-const { set } = useAppColor();
 
-onMounted(() => {
-  set(page.value.color);
-});
+onMounted(() => {});
 </script>
 
 <style scoped></style>
