@@ -1,39 +1,62 @@
 <template>
-  <nav class="flex-1 mt-6">
-    <div>
-      <div class="px-8 py-4 space-y-4">
-        <p class="text-sm font-semibold uppercase text-black dark:text-white">
-          Language
-        </p>
-        <SwitchLocalePathLink
-          v-for="locale in locales"
-          :locale="locale.code"
-          :key="locale.code"
-          class="flex items-center text-sm text-neutral-500 dark:text-neutral-50 group duration-200 gap-3hover:text-blue-500"
-        >
-          <Icon class="text-inherit size-4" :name="locale.icon" />
-          {{ locale.name }}
-        </SwitchLocalePathLink>
-      </div>
+  <div class="relative">
+    <button
+      @click="isLanguageMenuOpen = !isLanguageMenuOpen"
+      class="px-3 py-1.5 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors text-text-primary flex items-center space-x-1"
+    >
+      <span>{{ locale.toLocaleUpperCase() }}</span>
+      <!-- <span class="ml-1 text-xs">▼</span> -->
+    </button>
+
+    <div
+      v-if="isLanguageMenuOpen"
+      ref="target"
+      class="absolute right-0 mt-2 w-32 bg-secondary rounded-lg shadow-lg py-1 border border-accent/10"
+    >
+      <switch-locale-path-link
+        v-for="lang in locales"
+        :locale="lang.code"
+        :key="lang.code"
+        class="block w-full px-4 py-2 text-left hover:bg-accent/10 transition-colors text-sm"
+        :class="
+          locale === lang.code ? 'text-text-primary' : 'text-text-secondary'
+        "
+      >
+        {{ lang.name }}
+      </switch-locale-path-link>
     </div>
-  </nav>
+  </div>
 </template>
 
 <script setup lang="ts">
+// import i18nConfig from "~/i18n/i18n.config";
+import { onClickOutside } from "@vueuse/core";
+import { useTemplateRef } from "vue";
+
+// type AvailableLocales = Awaited<
+//   ReturnType<typeof i18nConfig>
+// >["availableLocales"][0];
+type AvailableLocales = "en" | "ru";
+
+const { locale } = useI18n();
+
 const locales: Array<{
-  code: "en" | "ru";
+  code: AvailableLocales;
   name: string;
-  icon: string;
 }> = [
   {
     code: "en",
     name: "English",
-    icon: "tabler:alphabet-latin",
   },
   {
     code: "ru",
     name: "Русский",
-    icon: "tabler:alphabet-cyrillic",
   },
 ];
+
+const isLanguageMenuOpen = ref(false);
+
+const target = useTemplateRef<HTMLElement>("target");
+
+onClickOutside(target, () => (isLanguageMenuOpen.value = false));
 </script>

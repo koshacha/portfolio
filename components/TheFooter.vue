@@ -1,24 +1,21 @@
 <template>
-  <footer class="border-t dark:border-neutral-700">
-    <div class="mx-auto max-w-3xl px-8 py-12">
-      <div
-        class="flex-col flex dark:border-white/20 pt-6 pb-12 max-w-3xl 2xl:max-w-6xl mx-auto"
-      >
-        <p class="text-sm text-zinc-500">
-          <span x-text="year">{{ new Date().getFullYear() }}</span
-          >
-        </p>
+  <footer class="py-6 px-6 md:px-12 text-text-secondary">
+    <div class="container mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <build-label hydrate-never />
+
+        <scroll-button variant="secondary">{{
+          $t("footer.back-to-top")
+        }}</scroll-button>
+
+        <lazy-contacts>
+          <the-button variant="secondary">{{
+            $t("footer.contact")
+          }}</the-button>
+        </lazy-contacts>
       </div>
     </div>
   </footer>
 </template>
 
-<script lang="ts" setup>
-import { useInterval } from "@vueuse/core";
-
-const counter = useInterval(1000);
-
-const time = computed(() => {
-  return formatTime(counter.value);
-});
-</script>
+<script lang="ts" setup></script>

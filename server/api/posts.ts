@@ -23,7 +23,5 @@ export default defineEventHandler(async (event) => {
     .order("sort", "DESC")
     .all();
 
-  await aboba();
-
   return pages;
 });
