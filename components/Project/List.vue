@@ -3,16 +3,40 @@ import { ref } from "vue";
 
 const { locale } = useI18n();
 
-const { data: projects, status: projectsStatus } = await useLazyFetch(
-  "/api/posts",
+const { data: projects, status: projectsStatus } = await useAsyncData(
+  `posts-${locale.value}`,
+  () => {
+    let loc = `/${locale.value}/anken`;
+
+    loc = loc.replace("/ru", "");
+
+    return queryCollection("project")
+      .select("id", "title", "path", "tags", "image")
+      .where("path", "LIKE", `${loc}/%`)
+      .order("sort", "DESC")
+      .all();
+  },
   {
-    query: {
-      locale: locale.value,
-    },
+    lazy: true,
   }
 );
-const { data: categories, status: categoriesStatus } = useLazyFetch<string[]>(
-  "/api/postCategories"
+
+const { data: categories, status: categoriesStatus } = await useAsyncData(
+  `cats-${locale.value}`,
+  async () => {
+    const pages = await queryCollection("project")
+      .select("tags")
+      .where("published", "=", true)
+      .where("tags", "IS NOT NULL")
+      .all();
+
+    const distinctTags = new Set(pages.map((page) => page.tags).flat());
+
+    return ["", ...distinctTags];
+  },
+  {
+    lazy: true,
+  }
 );
 
 const activeCategory = ref("");
