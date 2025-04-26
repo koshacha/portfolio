@@ -35,6 +35,13 @@ export default defineNuxtConfig({
       bodyAttrs: {
         class: "dark:bg-neutral-900 dark:text-white bg-white",
       },
+      script: [
+        {
+          src: "https://eu.umami.is/script.js",
+          defer: true,
+          dataWebsiteId: "4361b3b2-95c6-40ca-820d-71bdb05af291",
+        },
+      ],
     },
   },
 
