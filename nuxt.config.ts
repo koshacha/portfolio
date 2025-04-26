@@ -16,12 +16,6 @@ export default defineNuxtConfig({
 
   ssr: true,
 
-  content: {
-    preview: {
-      api: "https://api.nuxt.studio",
-    },
-  },
-
   googleFonts: {
     families: {
       Inter: [400, 500, 600, 700],
