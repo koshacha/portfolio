@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import { motion } from "motion-v";
+import { onClickOutside } from "@vueuse/core";
+import { useTemplateRef } from "vue";
 
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
@@ -17,6 +19,9 @@ onUnmounted(() => {
 });
 
 const showLogoTooltip = ref(false);
+
+const target = useTemplateRef<HTMLElement>("target");
+onClickOutside(target, () => (isMobileMenuOpen.value = false));
 </script>
 
 <template>
@@ -48,7 +53,7 @@ const showLogoTooltip = ref(false);
       <!-- Mobile Logo -->
       <nuxt-link-locale to="/" class="md:hidden text-xl font-semibold">
         <span class="text-text-primary">示す</span>
-        <!-- <span class="text-text-secondary ml-2 text-sm">[shimesu]</span> -->
+        <span class="text-text-secondary ml-2 text-sm">[shimesu]</span>
       </nuxt-link-locale>
 
       <div class="flex items-center space-x-3">
@@ -71,7 +76,7 @@ const showLogoTooltip = ref(false);
           @click="isMobileMenuOpen = !isMobileMenuOpen"
         >
           <span class="sr-only">Menu</span>
-          <icon name="ep:menu" class="size-5" />
+          <icon name="lucide:menu" class="size-5" />
         </the-button>
       </div>
     </div>
@@ -85,6 +90,7 @@ const showLogoTooltip = ref(false);
       :exit="{ opacity: 0 }"
     >
       <motion.div
+        ref="target"
         class="fixed top-0 left-0 w-full bg-primary/95 py-4 border-t border-accent/10 shadow-xl"
         :initial="{ y: -20, opacity: 0 }"
         :animate="{ y: 0, opacity: 1 }"

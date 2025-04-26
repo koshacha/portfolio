@@ -1,7 +1,7 @@
 <template>
   <footer class="py-6 px-6 md:px-12 text-text-secondary">
     <div class="container mx-auto">
-      <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="flex flex-row justify-between items-center">
         <build-label hydrate-never />
 
         <scroll-button variant="secondary">{{

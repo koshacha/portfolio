@@ -5,7 +5,9 @@
     :animate="{ opacity: 1, scale: 1 }"
     :exit="{ opacity: 0, scale: 0 }"
   >
-    <the-button @click="y = 0">{{ $t("footer.back-to-top") }}</the-button>
+    <the-button class="max-md:hidden" @click="y = 0">{{
+      $t("footer.back-to-top")
+    }}</the-button>
   </motion.div>
 </template>
 <script lang="ts" setup>
