@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     "motion-v/nuxt",
   ],
 
-  ssr: true,
+  ssr: false,
 
   googleFonts: {
     families: {
